@@ -1,0 +1,9 @@
+# Compiled binary (matches the module/binary name)
+/ros
+
+# GoReleaser output
+/dist/
+
+# Editor/OS cruft
+*.swp
+.DS_Store

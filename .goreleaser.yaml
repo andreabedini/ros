@@ -1,0 +1,41 @@
+# GoReleaser configuration — https://goreleaser.com
+# Invoked by the release-please workflow once a release tag is created.
+version: 2
+
+project_name: ros
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w -X main.version={{ .Version }}
+
+archives:
+  - formats: [tar.gz]
+    name_template: >-
+      {{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+
+checksum:
+  name_template: checksums.txt
+
+# release-please owns the GitHub release and its changelog; GoReleaser only
+# attaches the built archives to the release it already created.
+release:
+  mode: keep-existing
+
+changelog:
+  disable: true
