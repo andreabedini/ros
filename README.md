@@ -22,6 +22,15 @@ To build from a checkout:
 go build
 ```
 
+### Verifying downloads
+
+Release archives ship with [build provenance attestations](https://docs.github.com/en/actions/security-guides/using-artifact-attestations).
+Verify a downloaded artifact against this repository with the GitHub CLI:
+
+```bash
+gh attestation verify ros_0.1.0_linux_amd64.tar.gz --repo andreabedini/ros
+```
+
 ## Configuration
 
 Credentials can be supplied via environment variables or flags (flags take precedence):
